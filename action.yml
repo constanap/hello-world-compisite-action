@@ -1,0 +1,19 @@
+name: 'Hola Mundo Composite'
+description: 'Hola Mundo Composite'
+inputs:
+  who-to-greet:  # parámetro de entrada
+    description: 'Who to greet'
+    required: true
+    default: 'Mundo'
+outputs:
+  random-number: # salida
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: "composite"
+  steps:
+    - run: echo Hola ${{ inputs.who-to-greet }}, soy un Composite Action
+      shell: bash
+    - id: random-number-generator
+      run: echo "::set-output name=random-id::$(echo $RANDOM)"
+      shell: bash
